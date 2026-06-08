@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forja 3D — Calculadora de costos para impresión 3D</title>
+<meta name="description" content="App de escritorio gratuita para calcular costos, armar presupuestos PDF y gestionar trabajos de impresión 3D. Pensada para el mercado argentino.">
+<style>
+  :root {
+    --bg: #000000;
+    --bg-2: #0a0a0a;
+    --bg-card: #111111;
+    --border: #222222;
+    --border-hover: #444444;
+    --text: #ffffff;
+    --text-2: #b0b0b0;
+    --text-3: #707070;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+  a {
+    color: var(--text);
+    text-decoration: underline;
+    text-decoration-color: var(--text-3);
+    text-underline-offset: 3px;
+  }
+  a:hover { text-decoration-color: var(--text); }
+
+  /* HEADER */
+  header {
+    padding: 22px 32px;
+    border-bottom: 1px solid var(--border);
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .logo {
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .header-links {
+    display: flex;
+    gap: 28px;
+    font-size: 14px;
+  }
+  .header-links a {
+    color: var(--text-2);
+    text-decoration: none;
+  }
+  .header-links a:hover { color: var(--text); }
+
+  /* HERO */
+  .hero {
+    padding: 100px 32px 60px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .eyebrow {
+    color: var(--text-3);
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-size: clamp(40px, 7vw, 72px);
+    font-weight: 800;
+    line-height: 1.05;
+    margin-bottom: 24px;
+    letter-spacing: -0.03em;
+  }
+  .hero p {
+    font-size: clamp(16px, 2.2vw, 20px);
+    color: var(--text-2);
+    max-width: 640px;
+    margin: 0 auto 40px;
+  }
+  .cta-group {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 32px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 4px;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+    cursor: pointer;
+    border: 1px solid var(--text);
+    text-decoration: none;
+  }
+  .btn-primary {
+    background: var(--text);
+    color: var(--bg);
+  }
+  .btn-primary:hover {
+    background: var(--text-2);
+    color: var(--bg);
+  }
+  .btn-secondary {
+    background: transparent;
+    color: var(--text);
+    border-color: var(--border-hover);
+  }
+  .btn-secondary:hover {
+    border-color: var(--text);
+  }
+  .hero-note {
+    color: var(--text-3);
+    font-size: 13px;
+    margin-top: 12px;
+  }
+
+  /* SECTION */
+  .section {
+    padding: 100px 32px;
+    max-width: 1000px;
+    margin: 0 auto;
+    border-top: 1px solid var(--border);
+  }
+  .section-title {
+    margin-bottom: 60px;
+  }
+  .section-title .eyebrow { margin-bottom: 16px; }
+  .section-title h2 {
+    font-size: clamp(30px, 4vw, 44px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    max-width: 700px;
+  }
+
+  /* FEATURES */
+  .features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 32px;
+  }
+  .feature {
+    padding: 28px 0;
+    border-top: 1px solid var(--border);
+  }
+  .feature h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .feature p {
+    color: var(--text-2);
+    font-size: 15px;
+  }
+
+  /* PASOS */
+  .pasos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 40px;
+  }
+  .paso .num {
+    font-size: 14px;
+    color: var(--text-3);
+    letter-spacing: 3px;
+    margin-bottom: 16px;
+    font-weight: 600;
+  }
+  .paso h3 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .paso p {
+    color: var(--text-2);
+    font-size: 15px;
+  }
+
+  /* APOYO */
+  .apoyo {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 100px 32px;
+    text-align: center;
+  }
+  .apoyo-inner {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .apoyo .eyebrow { margin-bottom: 20px; }
+  .apoyo h2 {
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 700;
+    margin-bottom: 18px;
+    letter-spacing: -0.02em;
+  }
+  .apoyo p {
+    color: var(--text-2);
+    margin-bottom: 32px;
+    font-size: 16px;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 50px 32px;
+    text-align: center;
+    color: var(--text-3);
+    font-size: 13px;
+  }
+  footer a { color: var(--text-2); }
+
+  @media (max-width: 700px) {
+    .header-links { display: none; }
+    .hero { padding: 60px 24px 50px; }
+    .cta-group { flex-direction: column; align-items: stretch; }
+    .btn { justify-content: center; }
+    .section { padding: 70px 24px; }
+    .apoyo { padding: 70px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Forja 3D</div>
+  <nav class="header-links">
+    <a href="#funciones">Funciones</a>
+    <a href="#empezar">Empezar</a>
+    <a href="https://github.com/PlayerFak3/forja3d" target="_blank">GitHub</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="eyebrow">Gratis · Hecha en Argentina</div>
+  <h1>Calculá tus costos<br>de impresión 3D</h1>
+  <p>Aplicación de escritorio para makers e impresores 3D que necesitan armar presupuestos profesionales, llevar el registro de pedidos y saber cuánto cuesta realmente cada pieza.</p>
+  <div class="cta-group">
+    <a href="https://github.com/PlayerFak3/forja3d/releases/latest/download/Forja3D.exe" class="btn btn-primary">
+      Descargar para Windows
+    </a>
+    <a href="#funciones" class="btn btn-secondary">
+      Ver funcionalidades
+    </a>
+  </div>
+  <p class="hero-note">Un solo archivo · Sin instalación · Se actualiza sola</p>
+</section>
+
+<section id="funciones" class="section">
+  <div class="section-title">
+    <div class="eyebrow">Funcionalidades</div>
+    <h2>Todo lo que necesitás para cotizar y producir.</h2>
+  </div>
+  <div class="features">
+    <div class="feature">
+      <h3>Cálculo real de costos</h3>
+      <p>Material, electricidad, desgaste de máquina, insumos, margen de error y comisiones de MercadoLibre. Todo automático.</p>
+    </div>
+    <div class="feature">
+      <h3>Presupuestos PDF profesionales</h3>
+      <p>Con tu logo, datos del negocio, numeración automática y tres estilos visuales. Listos para mandar al cliente.</p>
+    </div>
+    <div class="feature">
+      <h3>Gestión de trabajos</h3>
+      <p>Estados, fechas de entrega, búsqueda, plantillas reusables, importar y exportar. Tu taller ordenado.</p>
+    </div>
+    <div class="feature">
+      <h3>Avisos de entregas</h3>
+      <p>Al abrir la app te muestra los pedidos que vencen en los próximos siete días. No se te pasa ninguno.</p>
+    </div>
+    <div class="feature">
+      <h3>Auto-actualizable</h3>
+      <p>Cuando sale una versión nueva, la app te avisa y se actualiza sola con un click. Sin reinstalar nada.</p>
+    </div>
+    <div class="feature">
+      <h3>Pensada para Argentina</h3>
+      <p>Pesos, formato local, MercadoLibre, multimoneda. Lo que el mercado argentino realmente necesita.</p>
+    </div>
+  </div>
+</section>
+
+<section id="empezar" class="section">
+  <div class="section-title">
+    <div class="eyebrow">Cómo empezar</div>
+    <h2>Tres pasos y estás cotizando.</h2>
+  </div>
+  <div class="pasos">
+    <div class="paso">
+      <div class="num">01</div>
+      <h3>Descargá</h3>
+      <p>Un solo archivo ejecutable. No requiere instalación. Lo bajás y lo abrís directamente.</p>
+    </div>
+    <div class="paso">
+      <div class="num">02</div>
+      <h3>Configurá</h3>
+      <p>Cargás los datos de tu impresora y de tu negocio una sola vez. La app te guía con un tour.</p>
+    </div>
+    <div class="paso">
+      <div class="num">03</div>
+      <h3>Cotizá</h3>
+      <p>Agregás las piezas del trabajo y obtenés el precio en vivo. Generás el PDF con un click.</p>
+    </div>
+  </div>
+</section>
+
+<section class="apoyo">
+  <div class="apoyo-inner">
+    <div class="eyebrow">Apoyar el proyecto</div>
+    <h2>¿Te resulta útil?</h2>
+    <p>Forja 3D es gratis y se mantiene con el aporte voluntario de quienes la encuentran útil. Si te sirve para tu trabajo, podés apoyar el proyecto.</p>
+    <a href="https://cafecito.app/PlayerFak3" target="_blank" class="btn btn-primary">
+      Invitame un café
+    </a>
+  </div>
+</section>
+
+<footer>
+  <p>Hecha en Argentina por <a href="https://github.com/PlayerFak3" target="_blank">Eduardo</a> · <a href="https://github.com/PlayerFak3/forja3d" target="_blank">Código en GitHub</a></p>
+</footer>
+
+</body>
+</html>
