@@ -21,7 +21,7 @@ el registro de tus trabajos.
 - **Plantillas reusables**: guardá modelos de trabajos frecuentes para no cargar todo de cero cada vez.
 - **Se actualiza sola**: cuando saco una versión nueva, la app se actualiza automáticamente.
 
-## 📥 Descarga
+Descarga
 
 Bajá el `.exe` más reciente desde aquí:
 
