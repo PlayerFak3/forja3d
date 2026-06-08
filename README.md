@@ -83,7 +83,7 @@ Apoyar el proyecto
 
 Forja 3D es **gratis** y se mantiene con el aporte voluntario de quienes la encuentran útil. Si te sirve para tu trabajo y querés apoyarme, podés invitarme un cafecito:
 
-**[cafecito.app/forja3d](https://cafecito.app/PlayerFak3)**
+**[cafecito.app/PlayerFak3](https://cafecito.app/PlayerFak3)**
 
 Cualquier aporte es bienvenido y me ayuda a seguir mejorando la app.
 
