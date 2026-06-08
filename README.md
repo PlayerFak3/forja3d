@@ -100,4 +100,4 @@ Forja 3D es software libre. Podés usarlo, modificarlo y compartirlo. Más detal
 
 ## 👤 Autor
 
-Desarrollado por **E.S.** (Grupo Evolvere) para la comunidad maker argentina.
+Desarrollado por **E.S.** para la comunidad maker argentina.
