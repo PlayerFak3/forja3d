@@ -1,4 +1,4 @@
-# 🔧 Forja 3D
+#Forja 3D
 
 > Calculadora de costos para impresión 3D, pensada para el mercado argentino.
 
@@ -11,7 +11,7 @@ el registro de tus trabajos.
 
 ---
 
-## ✨ ¿Qué hace?
+¿Qué hace?
 
 - **Calcula el costo real** de cada pieza: material, electricidad, desgaste de máquina, insumos, margen de error.
 - **Arma presupuestos en PDF** profesionales con tu marca, logo y términos personalizados.
